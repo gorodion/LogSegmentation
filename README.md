@@ -11,3 +11,4 @@ import cv2
 img = cv2.imread('some_img_8006.jpg')
 mask = inference_model(img, 8006)
 ```
+It will return the mask with 256x256 pixels
