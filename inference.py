@@ -38,6 +38,9 @@ def preprocess(img, cam):
     return img
 
 def inference_model(img, port):
+    '''
+    img: RGB image in np.array
+    '''
     cam = port2camname[port]
     img = preprocess(img, cam)
     with torch.no_grad():
