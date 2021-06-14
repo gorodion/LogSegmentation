@@ -9,6 +9,7 @@ from inference import inference_model
 import cv2
 
 img = cv2.imread('some_img_8006.jpg')
+img = cv2.cvtColor(img, cv.COLOR_BGR2RGB)
 mask = inference_model(img, 8006)
 ```
 It will return the mask with 256x256 pixels
