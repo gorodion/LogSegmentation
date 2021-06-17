@@ -5,8 +5,10 @@ import albumentations as A
 import albumentations.pytorch as A_torch
 from config import PATH
 
-net = torch.load(PATH + 'fcn_resnet50_96.pth')
-net.eval()
+net1 = torch.load(PATH + 'segm_butts.pth')
+net2 = torch.load(PATH + 'segm_butts_dotted.pth')
+net1.eval()
+net2.eval()
 
 port2camname = {
     8006: 'C05_03',
@@ -37,12 +39,21 @@ def preprocess(img, cam):
     img = transform(image=img)['image']
     return img
 
-def inference_model(img, port):
+def get_butts(img, port):
     '''
     img: RGB image in np.array
     '''
     cam = port2camname[port]
     img = preprocess(img, cam)
     with torch.no_grad():
-        mask = net(img[None].cuda())['out'].cpu()[0,0]
-    return mask
+        mask_butts = net1(img[None].cuda())['out'].cpu().numpy()[0,0]
+    return mask_butts
+
+def get_butts_dotted(img_butts):
+    '''
+    img_butts: custom size image with only butts
+    '''
+    img_butts = transform(image=img_butts)['image']
+    with torch.no_grad():
+        mask_butts_dotted = net2(img_butts[None].cuda())['out'].cpu().numpy()[0,0]
+    return mask_butts_dotted
