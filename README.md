@@ -7,13 +7,5 @@ segm_butts.pth - model's weights to segment group of butts
 segm_butts_dotted.pth - model's weights to segment butts separately
 
 ## Instruction
-Firstly specify PATH in config.py as path to model & disparity maps. Next:
-```python
-from inference import inference_model
-import cv2
-
-img = cv2.imread('some_img_8006.jpg')
-img = cv2.cvtColor(img, cv.COLOR_BGR2RGB)
-mask = inference_model(img, 8006)
-```
-It will return the mask with 256x256 pixels
+1. Firstly specify PATH in config.py as path to model & disparity maps. Next:
+2. Follow demo.ipynb
